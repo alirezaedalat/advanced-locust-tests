@@ -1,0 +1,33 @@
+
+{
+  "annotations": {
+    "list": []
+  },
+  "panels": [
+    {
+      "title": "Request Latency",
+      "type": "graph",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(locust_request_latency_seconds_bucket[1m])) by (le))",
+          "format": "time_series"
+        }
+      ]
+    },
+    {
+      "title": "Request Success Rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(rate(locust_requests_successful[1m])) / sum(rate(locust_requests_total[1m]))",
+          "format": "time_series"
+        }
+      ]
+    }
+  ],
+  "refresh": "5s",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  }
+}
